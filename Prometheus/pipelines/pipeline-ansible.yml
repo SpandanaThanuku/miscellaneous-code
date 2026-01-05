@@ -19,7 +19,8 @@ pipelines:
               timeout: 0
               tasks:
                 - exec:
+                    working_directory: Prometheus
                     command: bash
-                    arguments: ["ansible.sh"]
+                    arguments: [ "ansible.sh" ]
 
 
