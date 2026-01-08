@@ -31,8 +31,15 @@ scrape_configs:
         labels:
           app: "prometheus"
 
+#  - job_name: "ec2"
+#   static_configs:
+#      - targets: ["10.10.2.36:9100","10.10.1.191:9100"]
+#        labels:
+#         project: expense
+
   - job_name: "ec2"
-    static_configs:
-      - targets: ["10.10.2.36:9100","10.10.1.191:9100"]
-        labels:
-          project: expense
+    ec2_sd_configs:
+      - region: us-east-1
+        port: 9100
+
+
