@@ -16,6 +16,8 @@ pipelines:
           clean_workspace: false
           jobs:
             apply:
+              approval:
+                type: manual
               timeout: 0
               tasks:
                 - exec:
