@@ -31,6 +31,14 @@ resource "aws_route53_record" "prometheus-public" {
   records = [aws_instance.prometheus.public_ip]
 }
 
+resource "aws_route53_record" "grafana" {
+  zone_id = "Z10004612WLGZAG3UBPGB"
+  name    = "grafana"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.prometheus.public_ip]
+}
+
 resource "aws_route53_record" "prometheus" {
   zone_id = "Z10004612WLGZAG3UBPGB"
   name    = "prometheus"
