@@ -26,10 +26,13 @@
     enabled: yes
     daemon-reload: yes
 
+- name: Wait for prometheus port to open
+  ansible.builtin.shell: sleep 5; netstat -lntp | grep 9090
+
 - name: Download grafana server
   ansible.builtin.dnf:
     name: https://dl.grafana.com/grafana-enterprise/release/12.3.1/grafana-enterprise_12.3.1_20271043721_linux_amd64.rpm
-    state: Installed
+    state: installed
 
 - name: Start Grafana service
   ansible.builtin.systemd:
