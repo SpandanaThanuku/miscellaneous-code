@@ -63,4 +63,6 @@
     enabled: yes
     daemon-reload: yes
 
+- name: Wait for alertmanager port to open
+  ansible.builtin.shell: sleep 5; netstat -lntp | grep 9093
 
