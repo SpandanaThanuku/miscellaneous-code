@@ -1,4 +1,21 @@
-groups:
+ groups:
+  - name: AppAlerts
+    rules:
+      - alert: NginxServiceDown
+        expr: (node_systemd_unit_state{exported_name="nginx.service",state="active"}) < 1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Nginx Service Down
+      - alert: Backend Service Down
+        expr: node_systemd_unit_state{exported_name="backend.service",state="active"} < 1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Backend Service Down
+
   - name: saturation alerts
     rules:
       - alert: memory used percentage warning
@@ -15,3 +32,26 @@ groups:
           severity: critical
         annotations:
            summary: Memory used is in critical State
+      - alert: CPU used percentage warning
+        expr: avg by (instance) ((1 - (rate(node_cpu_seconds_total{mode="idle"}[5m]))) * 100) > 80
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: CPU used is in warning State
+      - alert: CPU used percentage critical
+        expr: avg by (instance) ((1 - (rate(node_cpu_seconds_total{mode="idle"}[5m]))) * 100) > 90
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: CPU used is in critical State
+      - alert: Network Packet queued/dropped count alert
+        expr: increase(node_ethtool_pps_allowance_exceeded[5m]) > 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Network Packet queued/dropped Count increased
+
+
