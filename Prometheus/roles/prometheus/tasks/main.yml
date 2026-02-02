@@ -39,3 +39,28 @@
     name: grafana-server
     state: restarted
     enabled: yes
+
+- name: Download AlertManager
+  ansible.builtin.unarchive:
+    src: https://github.com/prometheus/alertmanager/releases/download/v{{ alertmanager_version }}/alertmanager-{{ alertmanager_version }}.linux-amd64.tar.gz
+    dest: /opt
+    remote_src: true
+
+- name: Copy alertmanager service file
+  ansible.builtin.template:
+    src: alertmanager.service
+    dest: /etc/systemd/system/alertmanager.service
+
+- name: Copy alertmanager Server Configuration
+  ansible.builtin.template:
+    src: alertmanager.yml
+    dest: /opt/alertmanager-{{ alertmanager_version }}.linux-amd64/alertmanager.yml
+
+- name: Start alertmanager service
+  ansible.builtin.systemd:
+    name: alertmanager
+    state: restarted
+    enabled: yes
+    daemon-reload: yes
+
+
