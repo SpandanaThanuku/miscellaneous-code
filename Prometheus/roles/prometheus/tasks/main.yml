@@ -46,7 +46,7 @@
     name: grafana-server
     state: restarted
     enabled: yes
-  when: out.status.ActiveState != "active"
+
 
 - name: Copy grafana expense file
   ansible.builtin.copy:
