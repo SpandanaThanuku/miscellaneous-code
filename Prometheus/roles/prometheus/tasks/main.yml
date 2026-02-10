@@ -29,6 +29,13 @@
 - name: Wait for prometheus port to open
   ansible.builtin.shell: sleep 5; netstat -lntp | grep 9090
 
+- name: Check grafana service
+  ansible.builtin.systemd_service:
+    name: grafana
+    state: restarted
+  register: out
+  ignore_errors: true
+
 - name: Download grafana server
   ansible.builtin.dnf:
     name: https://dl.grafana.com/grafana-enterprise/release/12.3.1/grafana-enterprise_12.3.1_20271043721_linux_amd64.rpm
@@ -39,6 +46,21 @@
     name: grafana-server
     state: restarted
     enabled: yes
+  when: out.status.ActiveState != "active"
+
+- name: Copy grafana expense file
+  ansible.builtin.copy:
+    src: grafana-expense.json
+    dest: /tmp/grafana-expense.json
+
+- name: Import Grafana Dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: http://172.31.0.62:3000
+    grafana_api_key: glsa_0BU5tmU4rGiXTWCCQpZaEiSomxsio54c_d2f2c38b
+    state: present
+    commit_message: Updated by Ansible
+    overwrite: true
+    path: /tmp/grafana-expense.json
 
 - name: Download AlertManager
   ansible.builtin.unarchive:
