@@ -6,6 +6,6 @@
 - name: Install elasticsearch
   ansible.builtin.dnf:
     src: elasticsearch
-    state: Installed
+    state: installed
 
 
