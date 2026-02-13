@@ -1,5 +1,5 @@
-- name: prometheus Server Setup
+- name: elasticsearch Server Setup
   hosts: all
   become: true
   roles:
-    - prometheus
+    - elasticsearch
