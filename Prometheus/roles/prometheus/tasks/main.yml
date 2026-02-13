@@ -11,8 +11,8 @@
 
 - name: Copy prometheus Server Configuration
   ansible.builtin.template:
-    src: elk.yml
-    dest: /opt/prometheus-{{ prometheus_version }}.linux-amd64/elk.yml
+    src: elasticsearch.yml
+    dest: /opt/prometheus-{{ prometheus_version }}.linux-amd64/elasticsearch.yml
 
 - name: Copy prometheus Alerts Configuration
   ansible.builtin.template:
