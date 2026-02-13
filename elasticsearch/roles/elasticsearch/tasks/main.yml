@@ -10,9 +10,8 @@
     enablerepo: elasticsearch
   become: true
 
-
 - name: Install elasticsearch
-  ansible.builtin.dnf:
+  ansible.builtin.yum:
     src: elasticsearch
     state: installed
 
