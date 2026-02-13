@@ -11,8 +11,8 @@
 
 - name: Copy prometheus Server Configuration
   ansible.builtin.template:
-    src: prometheus.yml
-    dest: /opt/prometheus-{{ prometheus_version }}.linux-amd64/prometheus.yml
+    src: elk.yml
+    dest: /opt/prometheus-{{ prometheus_version }}.linux-amd64/elk.yml
 
 - name: Copy prometheus Alerts Configuration
   ansible.builtin.template:
