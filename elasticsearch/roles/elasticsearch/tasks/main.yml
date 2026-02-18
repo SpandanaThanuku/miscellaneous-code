@@ -3,13 +3,6 @@
     src: elasticsearch.repo
     dest: /etc/yum.repos.d/elasticsearch.repo
 
-- name: Install elasticsearch with specific repo enabled
-  ansible.builtin.yum:
-    name: elasticsearch
-    state: present
-    enablerepo: elasticsearch
-  become: true
-
 - name: Install elasticsearch
   ansible.builtin.yum:
     name: elasticsearch
