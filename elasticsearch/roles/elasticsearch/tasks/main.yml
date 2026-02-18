@@ -11,7 +11,7 @@
 - name: Start Elasticsearch
   ansible.builtin.systemd_service:
     name: elasticsearch
-    status: started
+    state: started
     enabled: yes
 
 - name: Install kibana
@@ -22,7 +22,7 @@
 - name: Start Kibana
   ansible.builtin.systemd_service:
     name: kibana
-    status: started
+    state: started
     enabled: yes
 
 
