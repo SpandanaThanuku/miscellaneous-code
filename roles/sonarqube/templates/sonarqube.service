@@ -1,0 +1,15 @@
+[Unit]
+Description=SonarQube 26
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/home/sonarqube/sonarqube-26.3.0.120487/bin/linux-x86-64/sonar.sh start
+ExecStop=/home/sonarqube/sonarqube-26.3.0.120487/sonar.sh stop
+ExecReload=/home/sonarqube/sonarqube-26.3.0.120487/sonar.sh restart
+Type=forking
+User=sonarqube
+
+
+[Install]
+WantedBy=multi-user.target
