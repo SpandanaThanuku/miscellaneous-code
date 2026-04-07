@@ -10,6 +10,8 @@
     src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-26.3.0.120487.zip
     dest: /home/sonarqube
     remote_src: yes
+    owner: sonarqube
+    group: sonarqube
 
 - name: Install Java
   ansible.builtin.dnf:
