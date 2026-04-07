@@ -1,11 +1,11 @@
-- name: Set-hostname sonarqube
+- name: Set Hostname
   ansible.builtin.shell: set-hostname sonarqube
 
-- name: Add Sonarqube user
+- name: Add SonarQube User
   ansible.builtin.user:
     name: sonarqube
 
-- name: Download Sonarqube
+- name: Download SonarQube
   ansible.builtin.unarchive:
     src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.4.0.87286.zip
     dest: /home/sonarqube
@@ -15,17 +15,16 @@
 
 - name: Install Java
   ansible.builtin.dnf:
-    name: java-21-openjdk.x86_64
+    name: java-17-openjdk.x86_64
     state: installed
 
-- name: Copy Sonarqube service file
+- name: Copy SonarQube service file
   ansible.builtin.template:
     src: sonarqube.service
     dest: /etc/systemd/system/sonarqube.service
 
-- name: Start Sonarqube Service
+- name: Start SonarQube Service
   ansible.builtin.systemd_service:
     name: sonarqube
     state: started
     enabled: yes
-
