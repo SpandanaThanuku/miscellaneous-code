@@ -7,7 +7,7 @@
 
 - name: Download Sonarqube
   ansible.builtin.unarchive:
-    src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-26.3.0.120487.zip
+    src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.4.0.87286.zip
     dest: /home/sonarqube
     remote_src: yes
     owner: sonarqube
