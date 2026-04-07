@@ -1,0 +1,13 @@
+- name: Set-hostname sonarqube
+  ansible.builtin.shell: set-hostname sonarqube
+
+- name: Add Sonarqube user
+  ansible.builtin.user:
+    name: sonarqube
+
+- name: Download Sonarqube
+  ansible.builtin.unarchive:
+    src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-26.3.0.120487.zip
+    dest: /home/sonarqube
+    remote_src: yes
+
