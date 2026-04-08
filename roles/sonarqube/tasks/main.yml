@@ -15,18 +15,8 @@
 
 - name: Install Java
   ansible.builtin.dnf:
-    name: https://download.oracle.com/java/26/latest/jdk-26_linux-x64_bin.rpm
+    name: java-21-openjdk.x86_64
     state: installed
-
-- name: Import Oracle GPG key
-  rpm_key:
-    state: present
-    key: https://www.oracle.com/webapps/redirect/signing-key
-
-- name: Install JDK RPM
-  yum:
-    name: /tmp/jdk-26_linux-x64_bin.rpm
-    state: present
 
 - name: Copy SonarQube service file
   ansible.builtin.template:
