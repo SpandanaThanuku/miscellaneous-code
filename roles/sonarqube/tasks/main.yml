@@ -7,7 +7,7 @@
 
 - name: Download SonarQube
   ansible.builtin.unarchive:
-    src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.4.0.87286.zip
+    src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-26.3.0.120487.zip
     dest: /home/sonarqube
     remote_src: yes
     owner: sonarqube
@@ -15,7 +15,7 @@
 
 - name: Install Java
   ansible.builtin.dnf:
-    name: java-17-openjdk.x86_64
+    name: https://download.oracle.com/java/26/latest/jdk-26_linux-x64_bin.rpm
     state: installed
 
 - name: Copy SonarQube service file
