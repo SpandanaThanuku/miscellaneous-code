@@ -13,27 +13,31 @@
     owner: sonarqube
     group: sonarqube
 
-- name: Download Oracle JDK
+- name: Create Java installation directory
+  file:
+    path: /opt/java
+    state: directory
+    mode: '0755'
+
+- name: Download JDK
   get_url:
     url: "https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.tar.gz"
     dest: "/tmp/jdk-25.tar.gz"
     mode: '0644'
-
-- name: Verify file exists
-  stat:
-    path: /tmp/jdk-25.tar.gz
-  register: jdk_file
-
-- name: Fail if download failed
-  fail:
-    msg: "JDK download failed!"
-  when: not jdk_file.stat.exists
+    headers:
+      Cookie: "oraclelicense=accept-securebackup-cookie"
 
 - name: Extract JDK
   ansible.builtin.unarchive:
     src: /tmp/jdk-25.tar.gz
     dest: /opt/java
     remote_src: yes
+
+- name: Install Java
+  ansible.builtin.dnf:
+    name: java-25-openjdk.x86_64
+    state: installed
+
 
 - name: Copy SonarQube service file
   ansible.builtin.template:
