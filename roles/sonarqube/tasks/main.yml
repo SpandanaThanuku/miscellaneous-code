@@ -15,7 +15,7 @@
 
 - name: Install Java
   ansible.builtin.dnf:
-    name: java-21-openjdk.x86_64
+    name: https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.tar.gz
     state: installed
 
 - name: Copy SonarQube service file
