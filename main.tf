@@ -4,3 +4,8 @@ module "ec2" {
   tool            = each.key
   instance_type   = each.value["instance"]
 }
+
+module "alb" {
+  source = "./modules/alb"
+}
+
