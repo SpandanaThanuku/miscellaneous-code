@@ -29,16 +29,14 @@
 - name: Wait for prometheus port to open
   ansible.builtin.shell: sleep 5; netstat -lntp | grep 9090
 
-- name: Check grafana service
-  ansible.builtin.systemd_service:
-    name: grafana
-    state: restarted
-  register: out
-  ignore_errors: true
+- name: Copy grafana service
+  ansible.builtin.template:
+    src: grafana.repo
+    dest: /etc/yum.repos.d/grafana.repo
 
 - name: Download grafana server
   ansible.builtin.dnf:
-    name: https://dl.grafana.com/grafana-enterprise/release/12.3.1/grafana-enterprise_12.3.1_20271043721_linux_amd64.rpm
+    name: grafana-enterprise
     state: installed
 
 - name: Start Grafana service
