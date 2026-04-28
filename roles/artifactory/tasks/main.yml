@@ -12,6 +12,6 @@
 
 - name: Start Artifactory Service
   ansible.builtin.systemd_service:
-    name: Artifactory
+    name: artifactory
     state: started
     enabled: yes
