@@ -1,17 +1,83 @@
-- name: Copy Jfrog package
-  ansible.builtin.template:
+- name: Copy JFrog repo file
+  ansible.builtin.copy:
     src: artifactory.repo
     dest: /etc/yum.repos.d/artifactory.repo
 
-- name: Install Jfrog and Java
+# -----------------------------
+# 1. Install dependencies
+# -----------------------------
+- name: Install Java + Artifactory
   ansible.builtin.dnf:
     name:
       - java-17-openjdk
       - jfrog-artifactory-oss
-    state: installed
+    state: present
 
+# -----------------------------
+# 2. STOP service before config (IMPORTANT)
+# -----------------------------
+- name: Ensure Artifactory is stopped
+  ansible.builtin.systemd:
+    name: artifactory
+    state: stopped
+  ignore_errors: yes
+
+# -----------------------------
+# 3. Create system.yaml BEFORE first start (CRITICAL FIX)
+# -----------------------------
+- name: Create Artifactory system.yaml
+  ansible.builtin.copy:
+    dest: /var/opt/jfrog/artifactory/var/etc/system.yaml
+    owner: artifactory
+    group: artifactory
+    mode: '0644'
+    content: |
+      shared:
+        database:
+          type: postgresql
+          driver: org.postgresql.Driver
+          url: jdbc:postgresql://localhost:5432/artifactory
+          username: artifactory
+          password: artifactory
+      router:
+        externalPort: 8082
+
+# -----------------------------
+# 4. Fix permissions (VERY IMPORTANT for bootstrap)
+# -----------------------------
+- name: Fix permissions
+  ansible.builtin.file:
+    path: /var/opt/jfrog/artifactory
+    owner: artifactory
+    group: artifactory
+    recurse: yes
+
+# -----------------------------
+# 5. Start Artifactory AFTER config
+# -----------------------------
 - name: Start Artifactory Service
-  ansible.builtin.systemd_service:
+  ansible.builtin.systemd:
     name: artifactory
     state: started
     enabled: yes
+
+# -----------------------------
+# 6. Wait for router health (CRITICAL)
+# -----------------------------
+- name: Wait for Artifactory to become healthy
+  ansible.builtin.uri:
+    url: http://localhost:8082/router/api/v1/system/health
+    method: GET
+    status_code: 200
+  register: result
+  retries: 30
+  delay: 10
+  until: result.status == 200
+
+# -----------------------------
+# 7. Final validation (jfmd + jffe indirectly validated)
+# -----------------------------
+- name: Confirm system health
+  ansible.builtin.uri:
+    url: http://localhost:8082/router/api/v1/system/health
+    return_content: yes
