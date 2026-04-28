@@ -26,5 +26,10 @@ variable "tools" {
       port     = 9093
       priority = 104
     }
+    artifactory = {
+      instance = "t3.medium"
+      port     = 8082
+      priority = 105
+    }
   }
 }
