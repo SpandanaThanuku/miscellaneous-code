@@ -1,5 +1,5 @@
-#- name: Set Prompt
-#  ansible.builtin.shell: set-prompt artifactory
+- name: Set Prompt
+  ansible.builtin.shell: set-prompt artifactory
 
 - name: Copy repo file
   ansible.builtin.template:
