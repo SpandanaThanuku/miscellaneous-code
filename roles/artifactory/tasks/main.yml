@@ -1,18 +1,16 @@
-- name: Set Prompt
-  ansible.builtin.shell: set-prompt artifactory
-
-- name: Copy repo file
+- name: Copy Jfrog repo
   ansible.builtin.template:
-    src: jfrog.repo
-    dest: /etc/yum.repos.d/jfrog-artifactory-rpms.repo
+    src: artifactory.repo
+    dest: /etc/yum.repos.d/artifactory.repo
 
-- name: Install Jfrog
+- name: Install Jfrog and Java
   ansible.builtin.dnf:
-    name: jfrog-artifactory-oss
+    name:
+      - java-17-openjdk
+      - jfrog-artifactory-oss
     state: installed
-    disable_gpg_check: true
 
-- name: Start Artifactory
+- name: Start Artifactory Service
   ansible.builtin.systemd_service:
     name: artifactory
     state: started
