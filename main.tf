@@ -7,6 +7,7 @@ module "ec2" {
   listener_arn    = module.alb.listener
   port            = each.value["port"]
   priority        = each.value["priority"]
+  use_spot        = each.value.use_spot
 
 }
 
