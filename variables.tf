@@ -32,7 +32,8 @@ variable "tools" {
       use_spot = true
     }
     artifactory = {
-      instance = "r6i.xlarge"
+     # instance = "r6i.xlarge"
+      instance = "t3.medium"
       port     = 8082
       priority = 105
       use_spot = false  # means on demand instance
