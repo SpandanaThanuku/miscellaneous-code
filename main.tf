@@ -8,6 +8,7 @@ module "ec2" {
   port            = each.value["port"]
   priority        = each.value["priority"]
   use_spot        = each.value.use_spot
+  policy_list     = each.value["policy_list"]
 
 }
 

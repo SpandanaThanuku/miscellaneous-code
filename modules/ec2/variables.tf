@@ -11,3 +11,4 @@ variable "priority" {}
 variable "use_spot" {
   type = bool
 }
+variable "policy_list" {}
