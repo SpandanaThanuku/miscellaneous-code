@@ -66,23 +66,5 @@
     dest: /opt
     remote_src: true
 
-- name: Copy alertmanager service file
-  ansible.builtin.template:
-    src: alertmanager.service
-    dest: /etc/systemd/system/alertmanager.service
 
-- name: Copy alertmanager Server Configuration
-  ansible.builtin.template:
-    src: alertmanager.yml
-    dest: /opt/alertmanager-{{ alertmanager_version }}.linux-amd64/alertmanager.yml
-
-- name: Start alertmanager service
-  ansible.builtin.systemd:
-    name: alertmanager
-    state: restarted
-    enabled: yes
-    daemon-reload: yes
-
-- name: Wait for alertmanager port to open
-  ansible.builtin.shell: sleep 5; netstat -lntp | grep 9093
 
