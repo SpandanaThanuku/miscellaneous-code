@@ -27,21 +27,21 @@ variable "tools" {
       port        = 3000
       priority    = 103
       use_spot    = true
-      policy_list = [""]
+      policy_list = []
     }
     alertmanager = {
       instance    = "t3.small"
       port        = 9093
       priority    = 104
       use_spot    = true
-      policy_list = [""]
+      policy_list = []
     }
     artifactory = {
      # instance = "r6i.xlarge"
       instance    = "t3.medium"
       port        = 8082
       priority    = 105
-      policy_list = [""]
+      policy_list = []
       use_spot    = true  #  false means on demand instance
     }
   }
