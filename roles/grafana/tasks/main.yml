@@ -1,0 +1,30 @@
+- name: Copy grafana service
+  ansible.builtin.template:
+    src: grafana.repo
+    dest: /etc/yum.repos.d/grafana.repo
+
+- name: Download grafana server
+  ansible.builtin.dnf:
+    name: grafana-enterprise
+    state: installed
+
+- name: Start Grafana service
+  ansible.builtin.systemd:
+    name: grafana-server
+    state: restarted
+    enabled: yes
+
+
+- name: Copy grafana expense file
+  ansible.builtin.copy:
+    src: grafana-expense.json
+    dest: /tmp/grafana-expense.json
+
+- name: Import Grafana dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: https://grafana.tsdevops25.online
+    grafana_api_key: "{{ lookup( 'amazon.aws.aws_ssm', 'grafana.apikey', region='us-east-1' ) }}"
+    state: present
+    commit_message: Updated by Ansible
+    overwrite: true
+    path: /tmp/grafana-expense.json
