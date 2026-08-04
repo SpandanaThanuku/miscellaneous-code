@@ -7,7 +7,7 @@
   ansible.builtin.dnf:
     name:
       - fontconfig
-      - java-17-openjdk
+      - java-21-openjdk
       - jenkins
     state: installed
 
