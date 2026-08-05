@@ -24,6 +24,6 @@ pipelines:
               tasks:
                 - exec:
                     command: bash
-                    arguments: [ "ansible.sh" , "jenkins"]
+                    arguments: [ "ansible.sh" , "jenkins" , "rhel"]
 
 

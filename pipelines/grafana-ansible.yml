@@ -24,6 +24,6 @@ pipelines:
               tasks:
                 - exec:
                     command: bash
-                    arguments: [ "ansible.sh" , "grafana"]
+                    arguments: [ "ansible.sh" , "grafana", "centos"]
 
 
