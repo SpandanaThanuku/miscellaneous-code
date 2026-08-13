@@ -1,5 +1,5 @@
 resource "aws_instance" "ec2" {
-  ami                    = data.aws_ami.centos8.image_id
+  ami                    = data.aws_ami.Redhat-9.image_id
   instance_type          = var.instance_type
   vpc_security_group_ids = ["sg-0b405afb2fb9773d9"]
   subnet_id              = "subnet-01defa6418fc5eed7"
