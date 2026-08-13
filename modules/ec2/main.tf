@@ -22,7 +22,8 @@ resource "aws_instance" "ec2" {
 }
 
 resource "aws_route53_record" "record" {
-  zone_id = "Z10004612WLGZAG3UBPGB"
+  #zone_id = "Z10004612WLGZAG3UBPGB"
+  zone_id = "Z052846836H8UE4FC44P1"
   name    = var.tool
   type    = "CNAME"
   ttl     = 30
@@ -30,7 +31,8 @@ resource "aws_route53_record" "record" {
 }
 
 resource "aws_route53_record" "record-private-ec2" {
-  zone_id = "Z10004612WLGZAG3UBPGB"
+  #zone_id = "Z10004612WLGZAG3UBPGB"
+  zone_id = "Z052846836H8UE4FC44P1"
   name    = "${var.tool}-int"
   type    = "A"
   ttl     = 30
