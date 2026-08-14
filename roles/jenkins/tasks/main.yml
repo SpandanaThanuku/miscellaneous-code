@@ -25,6 +25,6 @@
     url: http://jenkins.tsdevops26.online:8080
     user: admin
   loop:
-   - frontend
+    - frontend
 
 
